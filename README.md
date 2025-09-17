@@ -2,6 +2,12 @@
 
 An offline-first React Native application built with RxDB and SQLite, featuring seamless CouchDB synchronization. This app allows users to manage businesses and articles with full offline capabilities and automatic synchronization when back online.
 
+## 📹 Demo Video
+
+[![App Demo](https://img.youtube.com/vi/J4NZeJ9fJe8/maxresdefault.jpg)](https://youtube.com/shorts/J4NZeJ9fJe8?si=YpA-0GgPemDOHbyR)
+
+*Click the image above to watch the demo video on YouTube*
+
 ## ✨ Features
 
 - **Offline-First Architecture**: Work seamlessly without an internet connection
