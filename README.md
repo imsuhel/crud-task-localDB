@@ -1,103 +1,118 @@
-# crudTask
+# CRUD Task Manager
 
-Offline-first React Native app using RxDB + SQLite with CouchDB replication.
+An offline-first React Native application built with RxDB and SQLite, featuring seamless CouchDB synchronization. This app allows users to manage businesses and articles with full offline capabilities and automatic synchronization when back online.
 
-## Quick Start
+## ✨ Features
 
-1. Install
+- **Offline-First Architecture**: Work seamlessly without an internet connection
+- **Real-time Sync**: Automatic data synchronization when online
+- **CRUD Operations**: Full Create, Read, Update, and Delete functionality
+- **Multi-Platform**: Works on both Android and iOS
+- **Persistent Storage**: SQLite for reliable local data storage
+- **Reactive Programming**: Built with RxDB for responsive UI updates
 
-```bash
-npm install
-```
+## 🚀 Quick Start
 
-2. Android debug
+### Prerequisites
 
-```bash
-npm run android
-```
+- Node.js (v14 or later)
+- npm or Yarn
+- React Native development environment
+- Android Studio / Xcode (for mobile development)
+- Docker (for local CouchDB instance)
 
-## CouchDB (Docker)
+### Installation
 
-```bash
-docker run -d --name couchdb -p 5984:5984 \
-  -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=password couchdb:latest
-```
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd crudTask
+   ```
 
-Enable CORS in Fauxton and create databases: `businesses`, `articles`.
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn
+   ```
 
-## Env
+3. **Set up environment variables**
+   ```bash
+   cp src/env.example .env
+   ```
+   Update the `.env` file with your CouchDB credentials.
 
-Copy `src/env.example` to `.env` at project root and set `COUCHDB_URL`.
-If the dotenv plugin does not load, create `src/env.local.js` exporting `{ COUCHDB_URL }`.
+### Running the Development Server
 
-## Build APK
+1. **Start Metro bundler**
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
 
+2. **Run on Android**
+   ```bash
+   npm run android
+   # or
+   yarn android
+   ```
+
+3. **Run on iOS**
+   ```bash
+   cd ios && pod install && cd ..
+   npm run ios
+   # or
+   yarn ios
+   ```
+
+## 🛠 Development Setup
+
+### CouchDB Setup (Local Development)
+
+1. **Start CouchDB using Docker**
+   ```bash
+   docker run -d --name couchdb -p 5984:5984 \
+     -e COUCHDB_USER=admin \
+     -e COUCHDB_PASSWORD=password \
+     couchdb:latest
+   ```
+
+2. **Configure CouchDB**
+   - Access Fauxton UI at http://localhost:5984/_utils
+   - Log in with the credentials set above (admin/password by default)
+   - Enable CORS in the configuration
+   - Create the required databases: `businesses` and `articles`
+
+## 📦 Building for Production
+
+### Android APK
 ```bash
 cd android && ./gradlew assembleRelease
+# The APK will be available at: android/app/build/outputs/apk/release/app-release.apk
 ```
 
-## Demo
+### iOS Archive
+1. Open the Xcode workspace:
+   ```bash
+   cd ios && open crudTask.xcworkspace
+   ```
+2. Select Product > Archive in Xcode
 
-- Create business and articles offline, then reconnect and see sync.
+## 🔄 Data Synchronization
+- The app automatically syncs with the CouchDB server when online
+- All changes made offline are queued and synced when connectivity is restored
+- Conflict resolution is handled automatically by CouchDB
 
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+## 🤝 Contributing
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-# Getting Started
-
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
-
-## Step 1: Start Metro
-
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 ```
 
 If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.

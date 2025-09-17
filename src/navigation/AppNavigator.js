@@ -1,7 +1,7 @@
 import ArticleCreateScreen from '../screens/ArticleCreateScreen';
+import ArticleDetailScreen from '../screens/ArticleDetailScreen';
 import BusinessCreateScreen from '../screens/BusinessCreateScreen';
 import BusinessDetailScreen from '../screens/BusinessDetailScreen';
-import BusinessListScreen from '../screens/BusinessListScreen';
 import HomeScreen from '../screens/HomeScreen';
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -10,13 +10,18 @@ const Stack = createStackNavigator();
 
 export default function AppNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#000',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          color: '#fff',
+        },
+      }}>
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen
-        name="BusinessList"
-        component={BusinessListScreen}
-        options={{title: 'Businesses'}}
-      />
+
       <Stack.Screen
         name="BusinessCreate"
         component={BusinessCreateScreen}
@@ -31,6 +36,11 @@ export default function AppNavigator() {
         name="ArticleCreate"
         component={ArticleCreateScreen}
         options={{title: 'Create Article'}}
+      />
+      <Stack.Screen
+        name="ArticleDetail"
+        component={ArticleDetailScreen}
+        options={{title: 'Article Details'}}
       />
     </Stack.Navigator>
   );

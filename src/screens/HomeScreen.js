@@ -1,33 +1,58 @@
-import {Button, StyleSheet, View} from 'react-native';
-import {initDB, startReplication} from '../db';
+import {
+  Button,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useEffect} from 'react';
+import {fontScale, scale} from '../utils/responsive';
 
-import React from 'react';
-import SyncStatusBar from './SyncStatusBar';
+import BusinessListItem from '../components/BusinessListItem';
+import PrimaryButton from '../components/PrimaryButton';
+import fonts from '../utils/fonts';
+import useBusinessList from '../hooks/useBusinessList';
 
 export default function HomeScreen({navigation}) {
-  React.useEffect(() => {
-    (async () => {
-      const db = await initDB();
-      await startReplication();
-    })();
-  }, []);
+  const data = useBusinessList();
+
+  const handleCreateBusiness = () => {
+    navigation.navigate('BusinessCreate');
+  };
 
   return (
     <View style={styles.container}>
-      <Button
+      <FlatList
+        data={data}
+        keyExtractor={item => item.id}
+        contentContainerStyle={styles.listContainer}
+        style={{marginBottom: scale(15)}}
+        showsVerticalScrollIndicator={false}
+        renderItem={({item, index}) => (
+          <BusinessListItem item={item} index={index} />
+        )}
+      />
+      <PrimaryButton
+        onPress={handleCreateBusiness}
         title="Create Business"
-        onPress={() => navigation.navigate('BusinessCreate')}
+        style={{marginBottom: scale(10)}}
       />
-      <View style={{height: 12}} />
-      <Button
-        title="List Businesses"
-        onPress={() => navigation.navigate('BusinessList')}
-      />
-      <SyncStatusBar />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, padding: 16, justifyContent: 'center'},
+  container: {
+    flex: 1,
+    padding: scale(10),
+    justifyContent: 'center',
+    backgroundColor: '#000000',
+  },
+
+  listContainer: {
+    borderRadius: scale(10),
+    backgroundColor: '#101010',
+    marginBottom: scale(14),
+  },
 });

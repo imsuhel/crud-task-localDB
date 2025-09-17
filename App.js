@@ -1,14 +1,18 @@
 import 'react-native-gesture-handler';
 import 'react-native-get-random-values';
 
+import React, {useEffect} from 'react';
+import {getOrInitDB, startReplication} from './src/db';
+
 import AppNavigator from './src/navigation/AppNavigator';
 import {NavigationContainer} from '@react-navigation/native';
-import React from 'react';
-import {initDB} from './src/db';
 
 export default function App() {
-  React.useEffect(() => {
-    initDB().catch(() => {});
+  useEffect(() => {
+    (async () => {
+      await getOrInitDB();
+      await startReplication();
+    })();
   }, []);
 
   return (

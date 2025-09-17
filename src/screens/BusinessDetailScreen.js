@@ -1,51 +1,76 @@
-import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
+import {
+  Button,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {fontScale, scale} from '../utils/responsive';
 
+import ArticleListItem from '../components/ArticleListItem';
+import PrimaryButton from '../components/PrimaryButton';
 import React from 'react';
-import {initDB} from '../db';
-import {listArticlesByBusiness} from '../db/helpers';
-import useReactiveQuery from '../hooks/useReactiveQuery';
+import useArticleList from '../hooks/useArticleList';
 
 export default function BusinessDetailScreen({route, navigation}) {
   const {businessId, name} = route.params;
-  const [query, setQuery] = React.useState(null);
-  const data = useReactiveQuery(
-    query || {exec: async () => [], $: {subscribe: () => ({unsubscribe() {}})}},
-  );
+  const data = useArticleList(businessId);
 
-  React.useEffect(() => {
-    (async () => {
-      const db = await initDB();
-      const q = await listArticlesByBusiness(db, businessId);
-      setQuery(q);
-    })();
-  }, [businessId]);
+  const handleCreateArticle = () => {
+    navigation.navigate('ArticleCreate', {businessId});
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>{name}</Text>
-      <Button
-        title="Create Article"
-        onPress={() => navigation.navigate('ArticleCreate', {businessId})}
-      />
+
       <FlatList
         data={data}
         keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <View style={styles.item}>
-            <Text style={styles.title}>{item.name}</Text>
-            <Text>
-              Qty: {item.qty} | Price: {item.selling_price}
-            </Text>
-          </View>
+        contentContainerStyle={styles.listContainer}
+        style={{marginBottom: scale(15)}}
+        showsVerticalScrollIndicator={false}
+        renderItem={({item, index}) => (
+          <ArticleListItem item={item} index={index} />
         )}
+      />
+
+      <PrimaryButton
+        title="Create Article"
+        onPress={handleCreateArticle}
+        style={{marginBottom: scale(10)}}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, padding: 16},
-  header: {fontSize: 20, fontWeight: '600', marginBottom: 12},
-  item: {paddingVertical: 12, borderBottomWidth: 1, borderColor: '#eee'},
+  container: {
+    flex: 1,
+    padding: scale(10),
+    justifyContent: 'center',
+    backgroundColor: '#000000',
+  },
+  listContainer: {
+    borderRadius: scale(10),
+    backgroundColor: '#101010',
+    marginBottom: scale(14),
+  },
+  header: {
+    fontSize: fontScale(20),
+    fontWeight: '600',
+    marginBottom: scale(12),
+    color: '#fff',
+  },
+  item: {
+    paddingVertical: scale(12),
+    paddingHorizontal: scale(8),
+    borderBottomWidth: 1,
+    borderColor: '#eee',
+    backgroundColor: '#fff',
+    marginVertical: scale(2),
+    borderRadius: 4,
+  },
   title: {fontSize: 16, fontWeight: '500'},
 });
