@@ -92,6 +92,33 @@ cd android && ./gradlew assembleRelease
 # The APK will be available at: android/app/build/outputs/apk/release/app-release.apk
 ```
 
+## 📲 Download APK
+
+You can download the latest stable APK from our GitHub Releases page:
+
+[![Download APK](https://img.shields.io/badge/Download-APK-brightgreen?style=for-the-badge&logo=android)](https://github.com/SuhelIndiIt/crud-task-localDB/releases/latest/download/app-release.apk)
+
+### How to install the APK:
+1. Download the APK file from the link above
+2. On your Android device, go to Settings > Security
+3. Enable "Unknown sources" to allow installation of apps from unknown sources
+4. Open the downloaded APK file and tap "Install"
+
+### For Developers: Creating a New Release
+1. Build a release APK:
+   ```bash
+   cd android && ./gradlew assembleRelease
+   ```
+2. Create a new GitHub Release and upload the APK file from:
+   ```
+   android/app/build/outputs/apk/release/app-release.apk
+   ```
+3. Tag the release with a version number (e.g., v1.0.0)
+4. The APK will then be available for download at:
+   ```
+   https://github.com/SuhelIndiIt/crud-task-localDB/releases/latest/download/app-release.apk
+   ```
+
 ### iOS Archive
 1. Open the Xcode workspace:
    ```bash
