@@ -108,19 +108,6 @@ export default function ArticleDetailScreen({route, navigation}) {
                 {touched.selling_price && errors.selling_price && (
                   <Text style={styles.error}>{errors.selling_price}</Text>
                 )}
-
-                <InputField
-                  name="selling_price"
-                  placeholder="Selling Price"
-                  keyboardType="numeric"
-                  style={styles.input}
-                  onChangeText={handleChange('selling_price')}
-                  onBlur={handleBlur('selling_price')}
-                  value={values.selling_price}
-                />
-                {touched.selling_price && errors.selling_price && (
-                  <Text style={styles.error}>{errors.selling_price}</Text>
-                )}
               </View>
 
               <View style={styles.buttonContainer}>
